@@ -6,7 +6,9 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	float width = ofGetScreenWidth() * .12;		
-	box.setup(width * 2.5, width * 2.5, .9f, .2f, 0);	
+
+	box1.setup(width * 1.5, width * 1.5, .9f, .8f, 0);	
+	box2.setup(width * 2.0, width * 0.75, 0, .8f, .5f);	
 
 	ofSetSmoothLighting(true);
 	pointLight.setDiffuseColor( ofFloatColor(.95, .95, .65) );
@@ -47,10 +49,17 @@ void ofApp::draw(){
 	//ofLog(OF_LOG_NOTICE, "log thing" + ofToString(spinY * 180));
 
 	//box
-	box.rotateDeg(spinX, 1.0, 0.0, 0.0);
-	box.rotateDeg(spinY, 0, 1.0, 0.0);
+	ofPushMatrix();
+	box1.rotateDeg(spinX, 1.0, 0.0, 0.0);
+	box1.rotateDeg(spinY, 0, 1.0, 0.0);
+	box1.draw(lightLocation, lightAttenuation, cameraLocation);
 
-	box.draw(lightLocation, lightAttenuation, cameraLocation);
+	ofTranslate(0,150,0);
+
+	box2.rotateDeg(spinY, 0, 0.8, 0.0);
+	box2.rotateDeg(spinX, 0.5, 0, 0.0);
+	box2.draw(lightLocation, lightAttenuation, cameraLocation);
+	ofPopMatrix();
 
 	pointLight.disable();
 	camera.end();

@@ -1,3 +1,4 @@
+*.o
 .DS_STORE
 addons/
 docs/
@@ -6,3 +7,5 @@ libs/
 other/
 projectGenerator/
 scripts/
+.cache/
+bin/*/Contents/*

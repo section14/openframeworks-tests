@@ -26,7 +26,8 @@ class ofApp : public ofBaseApp{
 	
 	ofCamera camera;
 	ofLight pointLight;
-	Box box;
+	Box box1;
+	Box box2;
 
 	ofShader shader;
 

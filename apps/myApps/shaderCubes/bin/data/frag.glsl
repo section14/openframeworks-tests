@@ -19,10 +19,21 @@ out vec4 outputColor;
 
 void main()
 {
-    vec4 color = vec4(colorInput.rgb, 1.0);
+    float windowWidth = 1024.0;
+    float windowHeight = 768.0;
+    
+	float r = gl_FragCoord.x / windowWidth;
+	float g = gl_FragCoord.y / windowHeight;
+	float b = 1.0;
+	float a = 1.0;
+
+	vec4 color = vec4(r,g,b,a);
+
+    vec4 inputColor = vec4(colorInput.rgb, 1.0);
     //vec4 stripes = texture(stripesTexture, texCoordVar);
     //vec4 colorMix = mix(color, stripes, 0.1);
-	vec4 colorMix = color;
+	//vec4 colorMix = mix(inputColor, color, 0.9);
+	vec4 colorMix = inputColor;
 
     //////////////////////////////////////////////////
     ///// LIGHTING  /////////////////////////////////
@@ -75,7 +86,9 @@ void main()
     //attenuation /////////////
     ///////////////////////////
     float distanceToLight = length(normalize(lightLocation) - fragPosition);
-    float attenuation = 1.0 / ((1 + 0.00095 * distanceToLight) * 
+
+	//first num (ie. 2.0) makes stuff brighter the higher you go
+    float attenuation = 4.0 / ((1 + 0.00095 * distanceToLight) * 
 		(1 + 0.000005 * distanceToLight * distanceToLight));
     //
     // above with uniforms is:
@@ -85,8 +98,10 @@ void main()
     vec3 linearColor = attenuation * (diffuse + ambient + specular);
 
     //gamma corrected output
-    vec3 gamma = vec3(1.0/2.2);
+    vec3 gamma = vec3(2.0/2.2);
     outputColor = vec4(pow(linearColor, gamma), 1.0);
+
+	//outputColor = vec4(r, g, b, a);
 }
 
 /*
