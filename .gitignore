@@ -1,0 +1,8 @@
+.DS_STORE
+addons/
+docs/
+examples/
+libs/
+other/
+projectGenerator/
+scripts/
